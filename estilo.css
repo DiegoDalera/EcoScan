@@ -1,0 +1,150 @@
+:root {
+    --verde-oscuro: #1b5e20;
+    --verde: #2e7d32;
+    --verde-claro: #e8f5e9;
+    --verde-borde: #a5d6a7;
+    --crema: #f6faf3;
+    --texto: #1f2d1f;
+
+    /* colores de los contenedores de reciclaje */
+    --cont-azul: #1e88e5;
+    --cont-amarillo: #fdd835;
+    --cont-verde: #43a047;
+    --cont-gris: #78909c;
+    --cont-marron: #8d6e63;
+}
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--texto);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    padding: 30px 20px 25px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, var(--verde-oscuro), var(--verde));
+    border-bottom: 8px solid;
+    border-image: linear-gradient(
+        to right,
+        var(--cont-azul) 0 20%,
+        var(--cont-amarillo) 20% 40%,
+        var(--cont-verde) 40% 60%,
+        var(--cont-gris) 60% 80%,
+        var(--cont-marron) 80% 100%
+    ) 1;
+}
+
+header h1,
+header h2 {
+    margin: 0;
+}
+
+header h2 {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+section {
+    margin-top: 25px;
+}
+
+.botones,
+.mostrar_foto {
+    text-align: center;
+}
+
+/* botones secundarios: subir / tomar foto */
+.boton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 175px;
+    height: 50px;
+    margin: 0 10px 10px 0;
+    border: 2px solid var(--verde);
+    border-radius: 5px;
+    background: white;
+    color: var(--verde-oscuro);
+    font-size: 17px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.boton:hover {
+    background: var(--verde-claro);
+}
+
+/* botón principal: analizar */
+#analizar_foto {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: white;
+    margin-right: 0;
+}
+
+#analizar_foto:hover {
+    background: var(--verde-oscuro);
+}
+
+/* input oculto pero accesible con teclado */
+.boton input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.boton:focus-within,
+.boton:focus-visible {
+    outline: 3px solid var(--cont-azul);
+    outline-offset: 2px;
+}
+
+.cont_img {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px;
+    height: 250px;
+    margin: 25px auto;
+    padding: 20px;
+    border: 2px dashed var(--verde-borde);
+    border-radius: 5px;
+    background: var(--verde-claro);
+    text-align: center;
+}
+
+.cont_img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* resultado */
+.info {
+    padding: 5px 20px 15px;
+    border-left: 6px solid var(--cont-verde);
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info h2 {
+    color: var(--verde-oscuro);
+}
+
+.info h3 {
+    color: var(--cont-marron);
+}

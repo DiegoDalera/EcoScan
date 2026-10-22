@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de basura</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Análisis de basura</h1>
+        <h2>Subí o elegí una imagen de tu basura</h2>
+    </header>
+    <main>
+        <section class="botones">
+            <p>Elegí una opción para subir la foto</p>
+            <label class="boton">
+                Subir foto
+                <input type="file" id="input_galeria" accept="image/*">
+            </label>
+            <label class="boton">
+                Tomar foto
+                <input type="file" id="input_camara" accept="image/*" capture="environment">
+            </label>
+        </section>
+
+        <section class="mostrar_foto">
+            <div class="cont_img">
+                <img id="vista_previa" alt="Vista previa de la foto a analizar" hidden>
+            </div>
+            <button type="button" class="boton" id="analizar_foto">Analizar foto</button>
+        </section>
+
+        <section class="info" aria-live="polite">
+            <h2>Tu basura es:</h2>
+            <h3>Cómo reciclar</h3>
+            <p>...</p>
+        </section>
+    </main>
+</body>
+</html>
