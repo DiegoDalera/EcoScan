@@ -3,44 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de basura</title>
+    <meta name="theme-color" content="#0B3016">
+
+    <title>EcoScan | Clasificador de residuos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="estilo.css">
 </head>
+
 <body>
-    <header>
-        <h1>Análisis de basura</h1>
-        <h2>Subí o elegí una imagen de tu basura</h2>
-    </header>
-    <main>
-        <section class="botones">
-            <p>Elegí una opción para subir la foto</p>
-            <label class="boton">
-                Subir foto
-                <input type="file" id="input_galeria" accept="image/*">
-            </label>
-            <label class="boton">
-                Tomar foto
-                <input type="file" id="input_camara" accept="image/*" capture="environment">
-            </label>
-        </section>
 
-        <section class="mostrar_foto">
-            <div class="cont_img">
-                <img id="vista_previa" alt="Vista previa de la foto a analizar" hidden>
+    <header class="encabezado">
+        <div class="marca">
+            <div class="marca-icono" aria-hidden="true">♻</div>
+
+            <div>
+                <h1>EcoScan</h1>
+                <p>Pequeñas acciones, un planeta más limpio.</p>
             </div>
-            <button type="button" class="boton" id="analizar_foto" disabled>Analizar foto</button>
+        </div>
+    </header>
+
+    <main class="app">
+
+        <section class="presentacion">
+            <p class="etiqueta">CLASIFICADOR INTELIGENTE DE RESIDUOS</p>
+            <h2>¿Dónde tiro este residuo?</h2>
+            <p>
+                Sacá una foto o elegí una imagen. EcoScan analizará el residuo
+                y te ayudará a identificar su categoría.
+            </p>
         </section>
 
-        <section class="info" id="resultado" aria-live="polite">
-            <h2>Tu basura es: <span id="resultado_tipo">—</span></h2>
-            <p id="resultado_confianza"></p>
-            <h3>Cómo reciclar</h3>
-            <p id="resultado_reciclar">Subí una foto y tocá "Analizar foto".</p>
+        <section class="panel scanner">
+
+            <div class="panel-titulo">
+                <span class="paso">1</span>
+
+                <div>
+                    <h2>Elegí una imagen</h2>
+                    <p>Usá una foto clara y tratá de mostrar un solo objeto.</p>
+                </div>
+            </div>
+
+            <div class="acciones">
+                <label class="boton boton-secundario">
+                    <span aria-hidden="true">▧</span>
+                    Subir foto
+                    <input
+                        type="file"
+                        id="input_galeria"
+                        accept="image/*"
+                    >
+                </label>
+
+                <label class="boton boton-secundario">
+                    <span aria-hidden="true">●</span>
+                    Tomar foto
+                    <input
+                        type="file"
+                        id="input_camara"
+                        accept="image/*"
+                        capture="environment"
+                    >
+                </label>
+            </div>
+
+            <div class="cont_img">
+                <div class="placeholder">
+                    <span class="placeholder-icono" aria-hidden="true">⌗</span>
+                    <p>La imagen aparecerá acá</p>
+                </div>
+
+                <img
+                    id="vista_previa"
+                    alt="Vista previa de la foto a analizar"
+                    hidden
+                >
+            </div>
+
+            <button
+                type="button"
+                class="boton boton-principal"
+                id="analizar_foto"
+                disabled
+            >
+                Analizar foto
+            </button>
+
         </section>
+
+        <section class="panel info" id="resultado" aria-live="polite">
+
+            <div class="panel-titulo">
+                <span class="paso">2</span>
+
+                <div>
+                    <h2>Resultado</h2>
+                    <p>La predicción del modelo aparecerá en este sector.</p>
+                </div>
+            </div>
+
+            <div class="resultado-principal">
+                <p class="resultado-label">Categoría detectada</p>
+                <h3 id="resultado_tipo">—</h3>
+                <p id="resultado_confianza" class="confianza"></p>
+            </div>
+
+            <div class="consejo">
+                <h4>Cómo reciclar</h4>
+                <p id="resultado_reciclar">
+                    Subí una foto y tocá “Analizar foto”.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="ayuda">
+            <h2>Para obtener un mejor resultado</h2>
+
+            <div class="tips">
+                <article>
+                    <strong>Buena luz</strong>
+                    <span>La imagen debe verse clara.</span>
+                </article>
+
+                <article>
+                    <strong>Un objeto</strong>
+                    <span>Evitá mezclar varios residuos.</span>
+                </article>
+
+                <article>
+                    <strong>Bien centrado</strong>
+                    <span>Acercá el residuo a la cámara.</span>
+                </article>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        <strong>EcoScan</strong>
+        <span>Proyecto educativo · Centro de Formación Profesional N° 6</span>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
     <script src="app.js"></script>
+
 </body>
 </html>
