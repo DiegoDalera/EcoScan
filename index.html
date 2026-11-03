@@ -28,14 +28,19 @@
             <div class="cont_img">
                 <img id="vista_previa" alt="Vista previa de la foto a analizar" hidden>
             </div>
-            <button type="button" class="boton" id="analizar_foto">Analizar foto</button>
+            <button type="button" class="boton" id="analizar_foto" disabled>Analizar foto</button>
         </section>
 
-        <section class="info" aria-live="polite">
-            <h2>Tu basura es:</h2>
+        <section class="info" id="resultado" aria-live="polite">
+            <h2>Tu basura es: <span id="resultado_tipo">—</span></h2>
+            <p id="resultado_confianza"></p>
             <h3>Cómo reciclar</h3>
-            <p>...</p>
+            <p id="resultado_reciclar">Subí una foto y tocá "Analizar foto".</p>
         </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

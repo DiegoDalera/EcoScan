@@ -87,6 +87,11 @@ section {
     background: var(--verde-claro);
 }
 
+.boton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* botón principal: analizar */
 #analizar_foto {
     background: var(--verde);
@@ -95,7 +100,7 @@ section {
     margin-right: 0;
 }
 
-#analizar_foto:hover {
+#analizar_foto:hover:not(:disabled) {
     background: var(--verde-oscuro);
 }
 
@@ -148,3 +153,10 @@ section {
 .info h3 {
     color: var(--cont-marron);
 }
+
+/* el borde del resultado toma el color del contenedor */
+.info[data-contenedor="azul"]     { border-left-color: var(--cont-azul); }
+.info[data-contenedor="amarillo"] { border-left-color: var(--cont-amarillo); }
+.info[data-contenedor="verde"]    { border-left-color: var(--cont-verde); }
+.info[data-contenedor="gris"]     { border-left-color: var(--cont-gris); }
+.info[data-contenedor="marron"]   { border-left-color: var(--cont-marron); }
