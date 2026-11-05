@@ -3,23 +3,37 @@ const RUTA_MODELO = 'modelo/model.json';
 const RUTA_METADATA = 'modelo/metadata.json';
 const UMBRAL = 0.6; // por debajo de esta confianza no afirmamos nada
 
-// Las claves son los nombres exactos de las clases del entrenamiento
-// (metadata.json: metal, papel, plastico)
+// Las claves coinciden exactamente con las clases del modelo V2.
 const INFO = {
-    metal: {
-        nombre: 'Metal',
-        contenedor: 'gris',
-        texto: 'Enjuagá las latas y envases, aplastalos si podés y llevalos al contenedor gris.',
+    CARTON: {
+        nombre: 'Cartón',
+        material: 'cardboard',
+        texto: 'Retirá restos de comida, mantenelo limpio y seco y, si podés, plegalo para reducir su volumen.',
     },
-    papel: {
+    PAPEL: {
         nombre: 'Papel',
-        contenedor: 'azul',
-        texto: 'Tiene que estar limpio y seco. Si está engrasado o muy sucio, no se recicla. Va al contenedor azul.',
+        material: 'paper',
+        texto: 'Reciclalo limpio y seco. Si está muy sucio, mojado o engrasado, conviene descartarlo como residuo común.',
     },
-    plastico: {
+    METAL: {
+        nombre: 'Metal',
+        material: 'metal',
+        texto: 'Enjuagá latas y envases metálicos y, si es seguro hacerlo, aplastalos para ocupar menos espacio.',
+    },
+    PLASTICO: {
         nombre: 'Plástico',
-        contenedor: 'amarillo',
-        texto: 'Enjuagalo y aplastalo antes de llevarlo al contenedor amarillo.',
+        material: 'plastic',
+        texto: 'Vacialo, enjuagalo y dejalo seco antes de separarlo. Revisá las indicaciones locales para cada tipo de plástico.',
+    },
+    ORGANICO: {
+        nombre: 'Orgánico',
+        material: 'organic',
+        texto: 'Separalo de los reciclables. Si tenés acceso a compostaje, muchos restos de frutas y verduras pueden aprovecharse.',
+    },
+    VIDRIO: {
+        nombre: 'Vidrio',
+        material: 'glass',
+        texto: 'Vacialo y enjuagalo. Manipulá con cuidado los vidrios rotos y seguí las indicaciones locales para su disposición.',
     },
 };
 
@@ -32,6 +46,7 @@ const seccionResultado = document.getElementById('resultado');
 const elTipo = document.getElementById('resultado_tipo');
 const elConfianza = document.getElementById('resultado_confianza');
 const elReciclar = document.getElementById('resultado_reciclar');
+const iconoResultado = document.getElementById('resultado_icono');
 
 let modelo = null;
 let hayImagen = false;
@@ -58,14 +73,17 @@ async function cargarModelo() {
 function mostrarFoto(archivo) {
     if (!archivo) return;
     if (urlActual) URL.revokeObjectURL(urlActual);
+
     hayImagen = false;
     actualizarBoton();
     limpiarResultado();
+
     urlActual = URL.createObjectURL(archivo);
     vistaPrevia.onload = () => {
         hayImagen = true;
         actualizarBoton();
     };
+
     vistaPrevia.src = urlActual;
     vistaPrevia.hidden = false;
 }
@@ -81,26 +99,32 @@ function mostrarFoto(archivo) {
 async function analizar() {
     btnAnalizar.disabled = true;
     btnAnalizar.textContent = 'Analizando...';
+
     try {
-        // devuelve [{ className, probability }, ...] en el orden del entrenamiento
         const predicciones = await modelo.predict(vistaPrevia);
-        const mejor = predicciones.reduce((a, b) => (b.probability > a.probability ? b : a));
+        const mejor = predicciones.reduce((a, b) =>
+            b.probability > a.probability ? b : a
+        );
         mostrarResultado(mejor.className, mejor.probability);
     } catch (err) {
         console.error(err);
-        elTipo.textContent = 'error';
+        seccionResultado.dataset.material = '';
+        iconoResultado.textContent = '⚠';
+        elTipo.textContent = 'Error';
         elConfianza.textContent = 'No se pudo analizar la imagen. Probá con otra.';
         elReciclar.textContent = '';
     }
+
     btnAnalizar.textContent = 'Analizar foto';
     actualizarBoton();
 }
 
 function limpiarResultado() {
-    seccionResultado.dataset.contenedor = '';
+    seccionResultado.dataset.material = '';
+    iconoResultado.textContent = '♻';
     elTipo.textContent = '—';
     elConfianza.textContent = '';
-    elReciclar.textContent = 'Tocá "Analizar foto".';
+    elReciclar.textContent = 'Subí una foto y tocá “Analizar foto”.';
 }
 
 function mostrarResultado(clase, confianza) {
@@ -108,16 +132,18 @@ function mostrarResultado(clase, confianza) {
     const info = INFO[clase];
 
     if (confianza < UMBRAL || !info) {
-        seccionResultado.dataset.contenedor = '';
-        elTipo.textContent = 'no pude identificarlo';
+        seccionResultado.dataset.material = '';
+        iconoResultado.textContent = '?';
+        elTipo.textContent = 'No pude identificarlo';
         elConfianza.textContent = `Confianza baja (${porcentaje}%). Probá con otra foto, con más luz y el objeto bien centrado.`;
-        elReciclar.textContent = '';
+        elReciclar.textContent = 'Intentá mostrar un solo residuo y que ocupe una buena parte de la imagen.';
         return;
     }
 
-    seccionResultado.dataset.contenedor = info.contenedor;
+    seccionResultado.dataset.material = info.material;
+    iconoResultado.textContent = '♻';
     elTipo.textContent = info.nombre;
-    elConfianza.textContent = `Confianza: ${porcentaje}%. Contenedor ${info.contenedor}.`;
+    elConfianza.textContent = `Confianza: ${porcentaje}%`;
     elReciclar.textContent = info.texto;
 }
 

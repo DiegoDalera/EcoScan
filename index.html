@@ -7,6 +7,7 @@
 
     <title>EcoScan | Clasificador de residuos</title>
 
+    <link rel="icon" type="image/png" href="assets/icono-ecoscan.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +19,7 @@
 
     <header class="encabezado">
         <div class="marca">
-            <div class="marca-icono" aria-hidden="true">♻</div>
+            <img class="marca-logo" src="assets/logo-ecoscan.png" alt="Logo de EcoScan">
 
             <div>
                 <h1>EcoScan</h1>
@@ -42,7 +43,6 @@
 
             <div class="panel-titulo">
                 <span class="paso">1</span>
-
                 <div>
                     <h2>Elegí una imagen</h2>
                     <p>Usá una foto clara y tratá de mostrar un solo objeto.</p>
@@ -53,44 +53,26 @@
                 <label class="boton boton-secundario">
                     <span aria-hidden="true">▧</span>
                     Subir foto
-                    <input
-                        type="file"
-                        id="input_galeria"
-                        accept="image/*"
-                    >
+                    <input type="file" id="input_galeria" accept="image/*">
                 </label>
 
                 <label class="boton boton-secundario">
                     <span aria-hidden="true">●</span>
                     Tomar foto
-                    <input
-                        type="file"
-                        id="input_camara"
-                        accept="image/*"
-                        capture="environment"
-                    >
+                    <input type="file" id="input_camara" accept="image/*" capture="environment">
                 </label>
             </div>
 
             <div class="cont_img">
                 <div class="placeholder">
-                    <span class="placeholder-icono" aria-hidden="true">⌗</span>
+                    <img src="assets/icono-ecoscan.png" alt="" class="placeholder-logo" aria-hidden="true">
                     <p>La imagen aparecerá acá</p>
                 </div>
 
-                <img
-                    id="vista_previa"
-                    alt="Vista previa de la foto a analizar"
-                    hidden
-                >
+                <img id="vista_previa" alt="Vista previa de la foto a analizar" hidden>
             </div>
 
-            <button
-                type="button"
-                class="boton boton-principal"
-                id="analizar_foto"
-                disabled
-            >
+            <button type="button" class="boton boton-principal" id="analizar_foto" disabled>
                 Analizar foto
             </button>
 
@@ -100,7 +82,6 @@
 
             <div class="panel-titulo">
                 <span class="paso">2</span>
-
                 <div>
                     <h2>Resultado</h2>
                     <p>La predicción del modelo aparecerá en este sector.</p>
@@ -108,16 +89,17 @@
             </div>
 
             <div class="resultado-principal">
-                <p class="resultado-label">Categoría detectada</p>
-                <h3 id="resultado_tipo">—</h3>
-                <p id="resultado_confianza" class="confianza"></p>
+                <div class="resultado-icono" id="resultado_icono" aria-hidden="true">♻</div>
+                <div>
+                    <p class="resultado-label">Categoría detectada</p>
+                    <h3 id="resultado_tipo">—</h3>
+                    <p id="resultado_confianza" class="confianza"></p>
+                </div>
             </div>
 
             <div class="consejo">
-                <h4>Cómo reciclar</h4>
-                <p id="resultado_reciclar">
-                    Subí una foto y tocá “Analizar foto”.
-                </p>
+                <h4>Cómo separar este residuo</h4>
+                <p id="resultado_reciclar">Subí una foto y tocá “Analizar foto”.</p>
             </div>
 
         </section>
@@ -153,6 +135,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
     <script src="app.js"></script>
-
 </body>
 </html>

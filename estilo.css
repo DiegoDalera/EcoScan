@@ -78,6 +78,14 @@ input {
     gap: 14px;
 }
 
+.marca-logo {
+    width: 66px;
+    height: 66px;
+    flex: 0 0 66px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,.18));
+}
+
 .marca-icono {
     width: 52px;
     height: 52px;
@@ -304,6 +312,15 @@ input {
     color: var(--beige);
 }
 
+.placeholder-logo {
+    display: block;
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    margin: 0 auto 8px;
+    opacity: .75;
+}
+
 .placeholder-icono {
     display: block;
     margin-bottom: 8px;
@@ -328,8 +345,26 @@ input {
 
 .resultado-principal {
     padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     border-radius: 16px;
     background: rgba(11, 48, 22, .34);
+}
+
+
+.resultado-icono {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: var(--sage);
+    color: var(--forest);
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
 }
 
 .resultado-label {
@@ -375,26 +410,20 @@ input {
     line-height: 1.55;
 }
 
-/* compatibilidad con app.js actual */
-.info[data-contenedor="gris"] {
-    border-left-color: var(--metal);
-}
+/* Color del resultado según material */
+.info[data-material="organic"] { border-left-color: var(--organic); }
+.info[data-material="plastic"] { border-left-color: var(--plastic); }
+.info[data-material="metal"] { border-left-color: var(--metal); }
+.info[data-material="glass"] { border-left-color: var(--glass); }
+.info[data-material="paper"] { border-left-color: var(--paper); }
+.info[data-material="cardboard"] { border-left-color: var(--cardboard); }
 
-.info[data-contenedor="azul"] {
-    border-left-color: var(--paper);
-}
-
-.info[data-contenedor="amarillo"] {
-    border-left-color: var(--plastic);
-}
-
-.info[data-contenedor="verde"] {
-    border-left-color: var(--organic);
-}
-
-.info[data-contenedor="marron"] {
-    border-left-color: var(--cardboard);
-}
+.info[data-material="organic"] .resultado-icono { background: var(--organic); }
+.info[data-material="plastic"] .resultado-icono { background: var(--plastic); }
+.info[data-material="metal"] .resultado-icono { background: var(--metal); }
+.info[data-material="glass"] .resultado-icono { background: var(--glass); }
+.info[data-material="paper"] .resultado-icono { background: var(--paper); }
+.info[data-material="cardboard"] .resultado-icono { background: var(--cardboard); }
 
 /* =========================================================
    CONSEJOS
