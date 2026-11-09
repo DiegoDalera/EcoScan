@@ -1,8 +1,8 @@
 # EcoScan
 
 Versión integrada con:
-- Modelo V2 de Teachable Machine.
-- 6 clases: CARTON, PAPEL, METAL, PLASTICO, ORGANICO y VIDRIO.
+- Modelo de Teachable Machine (reentrenado el 9/11/2026).
+- 6 clases: plastic, cardboard, metal, glass, paper y organic (se muestran en español en la app).
 - Identidad visual oscura de EcoScan.
 - Logo e ícono desarrollados por estudiantes.
 

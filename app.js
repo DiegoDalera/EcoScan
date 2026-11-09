@@ -3,39 +3,48 @@ const RUTA_MODELO = 'modelo/model.json';
 const RUTA_METADATA = 'modelo/metadata.json';
 const UMBRAL = 0.6; // por debajo de esta confianza no afirmamos nada
 
-// Las claves coinciden exactamente con las clases del modelo V2.
+// Las claves coinciden con las clases del modelo (campo "labels" de modelo/metadata.json):
+// plastic, cardboard, metal, glass, paper, organic.
 const INFO = {
-    CARTON: {
+    cardboard: {
         nombre: 'Cartón',
         material: 'cardboard',
         texto: 'Retirá restos de comida, mantenelo limpio y seco y, si podés, plegalo para reducir su volumen.',
     },
-    PAPEL: {
+    paper: {
         nombre: 'Papel',
         material: 'paper',
         texto: 'Reciclalo limpio y seco. Si está muy sucio, mojado o engrasado, conviene descartarlo como residuo común.',
     },
-    METAL: {
+    metal: {
         nombre: 'Metal',
         material: 'metal',
         texto: 'Enjuagá latas y envases metálicos y, si es seguro hacerlo, aplastalos para ocupar menos espacio.',
     },
-    PLASTICO: {
+    plastic: {
         nombre: 'Plástico',
         material: 'plastic',
         texto: 'Vacialo, enjuagalo y dejalo seco antes de separarlo. Revisá las indicaciones locales para cada tipo de plástico.',
     },
-    ORGANICO: {
+    organic: {
         nombre: 'Orgánico',
         material: 'organic',
         texto: 'Separalo de los reciclables. Si tenés acceso a compostaje, muchos restos de frutas y verduras pueden aprovecharse.',
     },
-    VIDRIO: {
+    glass: {
         nombre: 'Vidrio',
         material: 'glass',
         texto: 'Vacialo y enjuagalo. Manipulá con cuidado los vidrios rotos y seguí las indicaciones locales para su disposición.',
     },
 };
+
+// Acepta mayúsculas, tildes y los nombres en español del modelo anterior (CARTON, PLASTICO...)
+const ALIAS = { carton: 'cardboard', papel: 'paper', plastico: 'plastic', organico: 'organic', vidrio: 'glass' };
+
+function claveDe(nombre) {
+    const limpio = nombre.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return ALIAS[limpio] || limpio;
+}
 
 /* ===== Elementos ===== */
 const inputGaleria = document.getElementById('input_galeria');
@@ -129,7 +138,7 @@ function limpiarResultado() {
 
 function mostrarResultado(clase, confianza) {
     const porcentaje = Math.round(confianza * 100);
-    const info = INFO[clase];
+    const info = INFO[claveDe(clase)];
 
     if (confianza < UMBRAL || !info) {
         seccionResultado.dataset.material = '';
